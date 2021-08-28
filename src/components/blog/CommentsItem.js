@@ -5,8 +5,8 @@ function CommentsItem(props) {
     return (   
             <div hidden={props.isVisible}>  
                 <ul>
-                    {props.comments.map(item => (
-                        <li key={item.id}>{item.comment}</li>
+                    {props.comments.map((item,index) => (
+                        <li key={index}>{item.comment}</li>
                     ))}
                 </ul>
             </div>  

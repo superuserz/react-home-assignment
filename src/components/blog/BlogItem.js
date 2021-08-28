@@ -24,7 +24,9 @@ class BlogItem extends Component {
 
     //render method has to be implemented for all classical components.
     render() {
+        console.log(this.props);
 return  <Card>
+            <div>Id : {this.props.id}</div>
             <div>Title : {this.props.title}</div>
             <div>Description : {this.props.description}</div>
             <CommentsItem comments={this.props.comments} isVisible={this.state.hideComments}></CommentsItem>
