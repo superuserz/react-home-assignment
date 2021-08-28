@@ -26,11 +26,13 @@ class BlogItem extends Component {
     render() {
         console.log(this.props);
 return  <Card>
+            <div>
             <div>Id : {this.props.id}</div>
             <div>Title : {this.props.title}</div>
             <div>Description : {this.props.description}</div>
             <CommentsItem comments={this.props.comments} isVisible={this.state.hideComments}></CommentsItem>
             <button className="button" onClick={this.toggleCommentsVisibility.bind(this)}>{this.state.hideComments ? 'Show Comments' : 'Hide Comments'}</button>
+            </div>
         </Card>
     }
 }

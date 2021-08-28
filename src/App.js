@@ -12,6 +12,7 @@ function App() {
   //Create a state for the blogs object
   const [blogs, setBlogs] = useState(INITIAL_BLOGS); //this is the initial state.
   const [comments, setComments] = useState(INITIAL_COMMENTS);
+  processData(blogs,comments);
   const processSubmittedData = (data) => {
     setBlogs(
         (prevState) => {         
@@ -25,7 +26,7 @@ function App() {
             ,...prevState];
         }
     )
-    processData(blogs,comments);
+    
 }
 
   return (
