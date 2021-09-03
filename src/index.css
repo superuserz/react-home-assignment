@@ -24,7 +24,6 @@ body {
 }
 
 .button {
-  position: absolute;
   background-color: #4CAF50; /* Green */
   color: black;
   border: 2px black solid;
