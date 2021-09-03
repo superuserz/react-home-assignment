@@ -29,7 +29,6 @@ function BlogForm(props) {
             <form onSubmit={submitHandler}>
 
                 <button
-                    Input="blog-form-action"
                     className="form-action">Add Blog
                 </button>
 
