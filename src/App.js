@@ -8,10 +8,8 @@ const INITIAL_BLOGS = [];
 const LOCAL_STORAGE_KEY = "blogStorage";
 
 function App() {
-
   //Create a state for the blogs object.
   const [blogs, setBlogs] = useState(INITIAL_BLOGS); //this is the initial state.
-
   //Effect to check if Blogs already Exist in local-storage during page refresh.
   useEffect(() => {
     const storedBlogs = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
@@ -22,14 +20,12 @@ function App() {
     }
     return () => { }
   }, [])
-
   //This will check if a Blog submitted through Form already Exists in Local Storage. Return Index if found else -1.
   const blogExist = (storedBlogs, data) => {
     return storedBlogs.findIndex(
       (element) => element.id === data.id
     )
   }
-
   //Process New Blog Submitted through the Form.
   const processSubmittedData = (data) => {
     const storedBlogs = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
@@ -39,15 +35,8 @@ function App() {
         storedBlogs[existingIndex] = { id: data.id, title: data.titleInput, description: data.descriptionInput, comments: [], timestamp: storedBlogs[existingIndex].timestamp }
         updateStorageAndState(storedBlogs);
       } else {
-        storedBlogs.push({
-          id: data.id,
-          title: data.titleInput,
-          description: data.descriptionInput,
-          comments: [],
-          timestamp: data.timestamp
-        });
+        storedBlogs.push({ id: data.id, title: data.titleInput, description: data.descriptionInput, comments: [], timestamp: data.timestamp });
         updateStorageAndState(storedBlogs);
-
       }
     } else { //Other wise push a new Object
       const blogObjArray = [{ id: data.id, title: data.titleInput, description: data.descriptionInput, comments: [], timestamp: data.timestamp }];
@@ -66,12 +55,11 @@ function App() {
     <div>
       <Header></Header>
       <BlogForm processSubmittedData={processSubmittedData}></BlogForm>
-      {
-        blogs.sort(function (a, b) {
-          return new Date(b.timestamp) - new Date(a.timestamp);
-        }).map(item =>
-          <Blogitem key={item.id} id={item.id} title={item.title} description={item.description} comments={item.comments} timestamp={JSON.stringify(item.timestamp)} hideComments={true}></Blogitem>
-        )}
+      {blogs.sort(function (a, b) {
+        return new Date(b.timestamp) - new Date(a.timestamp);
+      }).map(item =>
+        <Blogitem key={item.id} id={item.id} title={item.title} description={item.description} comments={item.comments} timestamp={JSON.stringify(item.timestamp)} hideComments={true}></Blogitem>
+      )}
     </div>
   );
 }

@@ -11,7 +11,6 @@ function BlogItem(props) {
             <div>
                 <button className="button" onClick={toggleCommentsVisibility}>{hideComments ? 'Show Comments' : 'Hide Comments'}</button>
             </div>
-
             <div>Blog Id : {props.id}</div>
             <div>Title : {props.title}</div>
             <div>Description : {props.description}</div>
