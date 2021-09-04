@@ -18,7 +18,8 @@ function BlogForm(props) {
         const submittedData = {
             id: idInput,
             titleInput: titleInput,
-            descriptionInput: descriptionInput
+            descriptionInput: descriptionInput,
+            timestamp: new Date()
         }
         props.processSubmittedData(submittedData);
 

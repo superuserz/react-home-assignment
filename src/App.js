@@ -9,22 +9,8 @@ const LOCAL_STORAGE_KEY = "blogStorage";
 
 function App() {
 
-
-
-
   //Create a state for the blogs object.
   const [blogs, setBlogs] = useState(INITIAL_BLOGS); //this is the initial state.
-  const [blogAdded, setBlogAdded] = useState(false);
-
-  //Effect Takes you to the Latest Added Blog on the browser.
-  useEffect(() => {
-    return () => {
-      window.scrollTo({
-        top: 10000,
-        behavior: 'smooth'
-      });
-    }
-  }, [blogAdded]);
 
   //Effect to check if Blogs already Exist in local-storage during page refresh.
   useEffect(() => {
@@ -50,24 +36,22 @@ function App() {
     if (storedBlogs) {  //If Blog Array Already exist in local Storage.
       const existingIndex = blogExist(storedBlogs, data);
       if (existingIndex !== -1) {
-        storedBlogs[existingIndex] = { id: data.id, title: data.titleInput, description: data.descriptionInput, comments: [] }
+        storedBlogs[existingIndex] = { id: data.id, title: data.titleInput, description: data.descriptionInput, comments: [], timestamp: storedBlogs[existingIndex].timestamp }
         updateStorageAndState(storedBlogs);
       } else {
         storedBlogs.push({
           id: data.id,
           title: data.titleInput,
           description: data.descriptionInput,
-          comments: []
+          comments: [],
+          timestamp: data.timestamp
         });
         updateStorageAndState(storedBlogs);
 
       }
     } else { //Other wise push a new Object
-      const firstBlog = [{ id: data.id, title: data.titleInput, description: data.descriptionInput, comments: [] }];
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(firstBlog));
-      setBlogs(() => {
-        return firstBlog;
-      });
+      const blogObjArray = [{ id: data.id, title: data.titleInput, description: data.descriptionInput, comments: [], timestamp: data.timestamp }];
+      updateStorageAndState(blogObjArray);
     }
   }
 
@@ -76,18 +60,18 @@ function App() {
     setBlogs(() => {
       return data;
     });
-    setBlogAdded((prevState) => {
-      return !prevState;
-    })
   }
 
   return (
     <div>
       <Header></Header>
       <BlogForm processSubmittedData={processSubmittedData}></BlogForm>
-      {blogs.map(item =>
-        <Blogitem key={item.id} id={item.id} title={item.title} description={item.description} comments={item.comments} hideComments={true}></Blogitem>
-      )}
+      {
+        blogs.sort(function (a, b) {
+          return new Date(b.timestamp) - new Date(a.timestamp);
+        }).map(item =>
+          <Blogitem key={item.id} id={item.id} title={item.title} description={item.description} comments={item.comments} timestamp={JSON.stringify(item.timestamp)} hideComments={true}></Blogitem>
+        )}
     </div>
   );
 }

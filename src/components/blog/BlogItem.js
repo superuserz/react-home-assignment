@@ -15,6 +15,7 @@ function BlogItem(props) {
             <div>Blog Id : {props.id}</div>
             <div>Title : {props.title}</div>
             <div>Description : {props.description}</div>
+            <div>Timestamp : {props.timestamp}</div>
             <CommentsItem comments={props.comments} isVisible={hideComments}></CommentsItem>
         </Card>
     );
